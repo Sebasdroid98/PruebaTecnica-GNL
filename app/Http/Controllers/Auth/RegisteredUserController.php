@@ -20,7 +20,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $departamentos = \App\Models\Departamento::all();
+        return view('auth.register', compact('departamentos'));
     }
 
     /**
@@ -31,15 +32,21 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'identificacion' => ['required', 'string', 'max:15'],
+            'nombres' => ['required', 'string', 'max:45'],
+            'apellidos' => ['required', 'string', 'max:45'],
+            'correo' => ['required', 'email', 'max:100'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // dd($request->all());
+    
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'identificacion' => $request->identificacion,
+            'nombres' => $request->nombres,
+            'apellidos' => $request->apellidos,
+            'correo' => $request->correo,
+            'password' => Hash::make($request->password)
         ]);
 
         event(new Registered($user));
