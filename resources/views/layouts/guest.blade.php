@@ -16,6 +16,13 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-end pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+
+            @if (Session::has('success'))
+                <div class="mb-4 text-sm text-green-600 dark:text-green-400">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
+
             <div>
                 <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
@@ -26,5 +33,7 @@
                 {{ $slot }}
             </div>
         </div>
+
+        @yield('scripts')
     </body>
 </html>

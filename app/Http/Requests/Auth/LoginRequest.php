@@ -28,12 +28,6 @@ class LoginRequest extends FormRequest
     {
         return [
             'identificacion' => ['required', 'string', 'max:15'],
-            // 'nombres' => ['required', 'string', 'max:45'],
-            // 'apellidos' => ['required', 'string', 'max:45'],
-            // 'celular' => ['required', 'string', 'max:15'],
-            // 'correo' => ['required', 'string', 'email', 'max:100'],
-            // 'habeas_data' => ['required', 'boolean'],
-            // 'municipio_id' => ['required', 'numeric'],
             'password' => ['required', 'string'],
         ];
     }

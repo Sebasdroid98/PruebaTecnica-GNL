@@ -7,7 +7,7 @@
         <!-- Identificación -->
         <div class="mt-4">
             <x-input-label for="identificacion" :value="__('Identificación')" />
-            <x-text-input id="identificacion" class="block mt-1 w-full" type="text" name="identificacion" :value="old('identificacion')" required autofocus autocomplete="identificacion" maxlength="15" />
+            <x-text-input id="identificacion" class="block mt-1 w-full" type="text" name="identificacion" :value="old('identificacion')" required autofocus autocomplete="identificacion" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="15" />
             <x-input-error :messages="$errors->get('identificacion')" class="mt-2" />
         </div>
 
@@ -25,38 +25,11 @@
             <x-input-error :messages="$errors->get('apellidos')" class="mt-2" />
         </div>
 
-        <!-- Celular -->
-        <div class="mt-4">
-            <x-input-label for="celular" :value="__('Celular')" />
-            <x-text-input id="celular" class="block mt-1 w-full" type="phone" name="celular" :value="old('celular')" required autofocus autocomplete="celular" maxlength="15" />
-            <x-input-error :messages="$errors->get('celular')" class="mt-2" />
-        </div>
-
         <!-- Correo -->
         <div class="mt-4">
             <x-input-label for="correo" :value="__('Correo')" />
             <x-text-input id="correo" class="block mt-1 w-full" type="email" name="correo" :value="old('correo')" required autocomplete="correo" maxlength="100" />
             <x-input-error :messages="$errors->get('correo')" class="mt-2" />
-        </div>
-
-        <!-- Departamento -->
-        <div class="mt-4">
-            <x-input-label for="departamento" :value="__('Departamento')" />
-            <x-select id="departamento" class="block mt-1 w-full" name="departamento" :value="old('departamento')" required>
-                <option value="" disabled selected>Seleccione</option>
-                @foreach ($departamentos as $departamento)
-                    <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
-                @endforeach
-            </x-select>
-            <x-input-error :messages="$errors->get('departamento')" class="mt-2" />
-        </div>
-
-        <!-- Municipio -->
-        <div class="mt-4">
-            <x-input-label for="municipio_id" :value="__('Municipio')" />
-            {{-- <x-select id="municipio" class="block mt-1 w-full" name="municipio" :value="old('municipio')" required /> --}}
-            <x-text-input id="municipio_id" class="block mt-1 w-full" type="number" name="municipio_id" required autocomplete="municipio_id" />
-            <x-input-error :messages="$errors->get('municipio_id')" class="mt-2" />
         </div>
 
         <!-- Contraseña -->
@@ -80,15 +53,6 @@
                             name="password_confirmation" required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <!-- Habeas data -->
-        <div class="block mt-4">
-            <label for="habeas_data" class="inline-flex items-center">
-                <input id="habeas_data" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="habeas_data" value="1" required>
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Autorizo el tratamiento de mis datos de acuerdo con la
-finalidad establecida en la política de protección de datos personales.') }} <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="#" target="_blank">{{ __('Haga clic aquí') }}</a></span>
-            </label>
         </div>
 
         <!-- Ver errores -->
@@ -133,37 +97,3 @@ finalidad establecida en la política de protección de datos personales.') }} <
         });
     });
 </script> --}}
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const identificacionInput = document.getElementById('departamento');
-        const nombresInput = document.getElementById('nombres');
-        const apellidosInput = document.getElementById('apellidos');
-        const celularInput = document.getElementById('celular');
-        const correoInput = document.getElementById('correo');
-        const passwordInput = document.getElementById('password');
-        const passwordConfirmationInput = document.getElementById('password_confirmation');
-
-        identificacionInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-        nombresInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
-        });
-        apellidosInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
-        });
-        celularInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-        correoInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^a-zA-Z0-9@._-]/g, '');
-        });
-        passwordInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^a-zA-Z0-9@._-]/g, '');
-        });
-        passwordConfirmationInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^a-zA-Z0-9@._-]/g, '');
-        });
-        
-    });

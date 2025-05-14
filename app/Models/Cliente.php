@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     use HasFactory;
+
+    protected $table = 'clientes';
+    
+    protected $fillable = [
+        'identificacion',
+        'nombres',
+        'apellidos',
+        'celular',
+        'correo',
+        'habeas_data',
+        'municipio_id'
+    ];
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class, 'municipio_id');
+    }
 }
