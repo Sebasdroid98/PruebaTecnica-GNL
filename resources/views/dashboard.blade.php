@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-8xl mx-2 sm:px-6 lg:px-8">
             <!-- Premios y Ganadores -->
             <div class="flex">
                 <div class="size-1/2 p-2">
@@ -66,7 +66,9 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        
+                                        <tr class="bg-white dark:bg-gray-800">
+                                            <td class="px-4 py-2 border dark:border-gray-700 text-center" colspan="4">No hay datos registrados</td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -110,7 +112,9 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    
+                                    <tr class="bg-white dark:bg-gray-800">
+                                        <td class="px-4 py-2 border dark:border-gray-700 text-center" colspan="6">No hay datos registrados</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -160,7 +164,9 @@
                                     <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->municipio->nombre .' - '. $cliente->municipio->departamento->nombre}}</td>
                                 </tr>
                             @empty
-                                
+                                <tr class="bg-white dark:bg-gray-800">
+                                    <td class="px-4 py-2 border dark:border-gray-700 text-center" colspan="7">No hay datos registrados</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

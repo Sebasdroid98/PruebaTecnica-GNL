@@ -7,6 +7,7 @@ use App\Http\Controllers\GanadorController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PremioController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Ganador;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $departamentos = \App\Models\Departamento::all();
-    return view('welcome', compact('departamentos'));
+    $ganadores = Ganador::select('cliente_id','premio_id')
+            ->orderBy('created_at', 'desc')
+            ->with('cliente.municipio.departamento')
+            ->with('premio')
+            ->get();
+    return view('welcome', compact('departamentos','ganadores'));
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
