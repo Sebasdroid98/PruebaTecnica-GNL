@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportarDatosController;
+use App\Http\Controllers\GanadorController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PremioController;
 use App\Http\Controllers\ProfileController;
@@ -34,8 +35,11 @@ Route::middleware('auth')->group(function () {
     // Ruta para registrar un nuevo premio
     Route::post('register-premio', [PremioController::class, 'store'])->name('register.premio');
 
+    // Ruta para seleccionar un ganador al azar
+    Route::get('seleccionar-ganador', [GanadorController::class, 'seleccionarGanador'])->name('seleccionar.ganador');
+
     // Ruta para exportar todos los datos a Excel
-    Route::get('exportar', [ExportarDatosController::class, 'exportarBase'])->name('exportar');
+    Route::get('exportar-registros', [ExportarDatosController::class, 'exportarBase'])->name('exportar.registros');
 });
 
 Route::middleware('guest')->group(function () {

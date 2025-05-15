@@ -29,6 +29,9 @@
 
             <!-- Page Content -->
             <main>
+                <!-- Zona de mensajes del sistema -->
+                @include('layouts.alertas')
+
                 {{ $slot }}
             </main>
         </div>

@@ -19,14 +19,18 @@ class DashboardController extends Controller
             ->get();
 
         // Obtener todos los premios
-        $premios = Premio::all();
+        $premios = Premio::select('id', 'codigo', 'nombre', 'cantidad', 'estado')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         // Obtener los ganadores
         $ganadores = Ganador::select('cliente_id','premio_id')
             ->orderBy('created_at', 'desc')
-            ->with('cliente')
+            ->with('cliente.municipio.departamento')
             ->with('premio')
             ->get();
+
+        // dd($ganadores);
 
         return view('dashboard', compact('clientes', 'ganadores', 'premios'));
     }

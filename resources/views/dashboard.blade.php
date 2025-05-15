@@ -5,21 +5,14 @@
         </h2>
     </x-slot>
 
-    @if (Session::has('success'))
-        <div class="mb-4 text-sm text-green-600 dark:text-green-400">
-            {{ Session::get('success') }}
-        </div>
-    @endif
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Premios y Ganadores -->
             <div class="flex">
                 <div class="size-1/2 p-2">
                     <x-card>
-                        <p class="dark:text-white text-center">Premios</p>
+                        <p class="dark:text-white">Premios</p>
                         <div class="">
-                            <p class="dark:text-white">Nuevo premio</p>
                             <form method="POST" action="{{ route('register.premio') }}">
                                 @csrf
                                 <div class="flex">
@@ -38,9 +31,10 @@
                                         <x-text-input id="cantidad" class="block mt-1 w-full" type="number" name="cantidad" :value="old('cantidad')" required autofocus autocomplete="cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="15" />
                                         <x-input-error :messages="$errors->get('cantidad')" class="mt-2" />
                                     </div>
-                                    <div class="size-1/4 pt-4">
+                                    <div class="size-1/4">
+                                        <p>&nbsp;</p>
                                         <x-primary-button class="ms-2">
-                                            {{ __('Crear') }}
+                                            {{ __('Agregar') }}
                                         </x-primary-button>
                                     </div>
                                 </div>
@@ -48,7 +42,7 @@
                         </div>
                         <hr class="mt-4">
                         <div>
-                            <table class="min-w-full border border-gray-300 dark:border-gray-900 dark:text-white rounded-lg mt-3">
+                            <table class="min-w-full w-full border border-gray-300 dark:border-gray-900 dark:text-white rounded-lg mt-3">
                                 <thead>
                                     <tr class="bg-gray-200 dark:bg-gray-700">
                                         <th class="px-4 py-2 border dark:border-gray-700">Codigo</th>
@@ -83,23 +77,32 @@
                 <div class="size-1/2 p-2">
                     <x-card>
                         <p class="dark:text-white">Ganadores</p>
-                        <table class="min-w-full border border-gray-300 dark:border-gray-900 dark:text-white rounded-lg mt-3">
+                        <table class="min-w-full w-full border border-gray-300 dark:border-gray-900 dark:text-white rounded-lg mt-3">
                             <thead>
                                 <tr class="bg-gray-200 dark:bg-gray-700">
+                                    <th class="px-4 py-2 border dark:border-gray-700" colspan="3">Cliente</th>
+                                    <th class="px-4 py-2 border dark:border-gray-700" colspan="3">Premio</th>
+                                </tr>
+
+                                <tr class="bg-gray-200 dark:bg-gray-700">
+                                    <th class="px-4 py-2 border dark:border-gray-700">Identificación</th>
+                                    <th class="px-4 py-2 border dark:border-gray-700">Nombres</th>
+                                    <th class="px-4 py-2 border dark:border-gray-700">Apellidos</th>
                                     <th class="px-4 py-2 border dark:border-gray-700">Codigo</th>
                                     <th class="px-4 py-2 border dark:border-gray-700">Nombre</th>
-                                    <th class="px-4 py-2 border dark:border-gray-700">Cantidad</th>
                                     <th class="px-4 py-2 border dark:border-gray-700">Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($premios as $premio)
+                                @forelse ($ganadores as $ganador)
                                     <tr class="bg-white dark:bg-gray-800">
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $premio->codigo }}</td>
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $premio->nombre }}</td>
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $premio->cantidad }}</td>
+                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $ganador->cliente->identificacion }}</td>
+                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $ganador->cliente->nombres }}</td>
+                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $ganador->cliente->apellidos }}</td>
+                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $ganador->premio->codigo }}</td>
+                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $ganador->premio->nombre }}</td>
                                         <td class="px-4 py-2 border dark:border-gray-700">
-                                            @if ($premio->estado)
+                                            @if ($ganador->premio->estado)
                                                 <i class="fa-solid fa-circle-check"></i>&nbsp;Sorteado
                                             @else
                                                 <i class="fa-solid fa-user-slash"></i>&nbsp;Por sortear
@@ -118,48 +121,49 @@
             <!-- Clientes -->
             <x-card class="mt-3">
                 <p class="dark:text-white">Clientes</p>
-                <div class="flex">
-                    <div class="size-9/12">
-                        <table class="min-w-full border border-gray-300 dark:border-gray-900 dark:text-white rounded-lg mt-3">
-                            <thead>
-                                <tr class="bg-gray-200 dark:bg-gray-700">
-                                    <th class="px-4 py-2 border dark:border-gray-700">Identificación</th>
-                                    <th class="px-4 py-2 border dark:border-gray-700">Nombres</th>
-                                    <th class="px-4 py-2 border dark:border-gray-700">Apellidos</th>
-                                    <th class="px-4 py-2 border dark:border-gray-700">Celular</th>
-                                    <th class="px-4 py-2 border dark:border-gray-700">Correo</th>
-                                    <th class="px-4 py-2 border dark:border-gray-700">Habeas data</th>
-                                    <th class="px-4 py-2 border dark:border-gray-700">Ubicación</th>
+                <div class="flex justify-end">
+                    <x-button-link href="{{ route('seleccionar.ganador') }}" class="ms-4">
+                        {{ __('Iniciar próximo sorteo') }}
+                    </x-button-link>
+                    <x-button-link href="{{ route('exportar.registros') }}" class="ms-4">
+                        {{ __('Descargar todos los registros') }}
+                    </x-button-link>
+                </div>
+                <div>
+                    <table class="min-w-full w-full border border-gray-300 dark:border-gray-900 dark:text-white rounded-lg mt-3">
+                        <thead>
+                            <tr class="bg-gray-200 dark:bg-gray-700">
+                                <th class="px-4 py-2 border dark:border-gray-700">Identificación</th>
+                                <th class="px-4 py-2 border dark:border-gray-700">Nombres</th>
+                                <th class="px-4 py-2 border dark:border-gray-700">Apellidos</th>
+                                <th class="px-4 py-2 border dark:border-gray-700">Celular</th>
+                                <th class="px-4 py-2 border dark:border-gray-700">Correo</th>
+                                <th class="px-4 py-2 border dark:border-gray-700">Habeas data</th>
+                                <th class="px-4 py-2 border dark:border-gray-700">Ubicación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($clientes as $cliente)
+                                <tr class="bg-white dark:bg-gray-800">
+                                    <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->identificacion }}</td>
+                                    <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->nombres }}</td>
+                                    <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->apellidos }}</td>
+                                    <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->celular }}</td>
+                                    <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->correo }}</td>
+                                    <td class="px-4 py-2 border dark:border-gray-700">
+                                        @if ($cliente->habeas_data)
+                                            <i class="fa-solid fa-circle-check"></i>&nbsp;Aceptado
+                                        @else
+                                            <i class="fa-solid fa-user-slash"></i>&nbsp;No aceptado
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->municipio->nombre .' - '. $cliente->municipio->departamento->nombre}}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($clientes as $cliente)
-                                    <tr class="bg-white dark:bg-gray-800">
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->identificacion }}</td>
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->nombres }}</td>
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->apellidos }}</td>
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->celular }}</td>
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->correo }}</td>
-                                        <td class="px-4 py-2 border dark:border-gray-700">
-                                            @if ($cliente->habeas_data)
-                                                <i class="fa-solid fa-circle-check"></i>&nbsp;Aceptado
-                                            @else
-                                                <i class="fa-solid fa-user-slash"></i>&nbsp;No aceptado
-                                            @endif
-                                        </td>
-                                        <td class="px-4 py-2 border dark:border-gray-700">{{ $cliente->municipio->nombre .' - '. $cliente->municipio->departamento->nombre}}</td>
-                                    </tr>
-                                @empty
-                                    
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="size-1/12">
-                        <x-nav-link href="" class="ms-4">
-                            {{ __('Descargar todos los registros') }}
-                        </x-nav-link>
-                    </div>
+                            @empty
+                                
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </x-card>
         
