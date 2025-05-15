@@ -4,7 +4,7 @@
     @endsection
 
     <div class="py-3">
-        <div class="max-w-8xl mx-2 sm:px-6 lg:px-8">            
+        <div class="max-w-8xl mx-2 sm:px-6 lg:px-8">
             <!-- Propuesta landing page -->
             <div class="flex">
                 <div class="size-1/2 p-2">
@@ -14,8 +14,12 @@
                     <x-card class="mt-8">
                         <h1 class="text-xl mb-4 font-bold text-center text-gray-900 dark:text-white">Bienvenido a Global Next Level</h1>
                         <hr>
-                        <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Tenemos el gusto de informarte las novedades de hoy, <strong class="text-xl font-bold">!Estamos de sorteo!</strong>.</p>
-                        <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Sí, como lo has leído, hoy estamos sorteando un <strong>automóvil último modelo</strong>.</p>
+                        @if ($premio)
+                            <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Tenemos el gusto de informarte las novedades de hoy, <strong class="text-xl font-bold">!Estamos de sorteo!</strong>.</p>
+                            <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Sí, como lo has leído, hoy estamos sorteando un increible premio, el cual es: <strong>{{ $premio->nombre }}</strong>.</p>
+                        @else
+                            <p class="mt-4 text-center text-gray-600 dark:text-gray-400">En este momento no tenemos sorteos activos. Pero proximamente estaremos sorteando premios.</p>
+                        @endif
                         <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Para participar, por favor regístrate <x-nav-link href="#form-clientes">presionando aquí</x-nav-link>.</p>
                         <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Si ya estás registrado no olvides revisar el listado de ganadores y si tienes alguna duda, nuestros agentes te atenderán de inmediato.</p>
                         <div class="flex justify-center">
@@ -25,22 +29,20 @@
                     </x-card>
                 </div>
             </div>
-        
+
             <!-- Registro de clientes -->
             <div class="mt-6 max-w-5xl mx-auto sm:px-6 lg:px-8" id="form-clientes">
                 <x-card>
                     <form method="POST" action="{{ route('register.cliente') }}">
                         @csrf
-                
                         <p class="text-center mb-4 dark:text-white">Tus datos</p>
-
                         <div class="flex">
                             <div class="size-1/2">
                                 <!-- Identificación -->
                                 <div class="mt-4">
                                     <x-input-label for="identificacion" :value="__('Identificación')" />
-                                    <x-text-input id="identificacion" class="block mt-1 w-full" type="text" 
-                                        name="identificacion" :value="old('identificacion')" required autofocus autocomplete="identificacion" 
+                                    <x-text-input id="identificacion" class="block mt-1 w-full" type="text"
+                                        name="identificacion" :value="old('identificacion')" required autofocus autocomplete="identificacion"
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="15"
                                         placeholder="Ingresa tu número de identificación" />
                                     <x-input-error :messages="$errors->get('identificacion')" class="mt-2" />
@@ -49,7 +51,7 @@
                                 <!-- Nombres -->
                                 <div class="mt-4">
                                     <x-input-label for="nombres" :value="__('Nombres')" />
-                                    <x-text-input id="nombres" class="block mt-1 w-full" type="text" name="nombres" 
+                                    <x-text-input id="nombres" class="block mt-1 w-full" type="text" name="nombres"
                                         :value="old('nombres')" required autofocus autocomplete="nombres" maxlength="45"
                                         placeholder="Ingresa tu(s) nombre(s)" />
                                     <x-input-error :messages="$errors->get('nombres')" class="mt-2" />
@@ -58,8 +60,8 @@
                                 <!-- Apellidos -->
                                 <div class="mt-4">
                                     <x-input-label for="apellidos" :value="__('Apellidos')" />
-                                    <x-text-input id="apellidos" class="block mt-1 w-full" type="text" name="apellidos" 
-                                        :value="old('apellidos')" required autofocus autocomplete="apellidos" maxlength="45" 
+                                    <x-text-input id="apellidos" class="block mt-1 w-full" type="text" name="apellidos"
+                                        :value="old('apellidos')" required autofocus autocomplete="apellidos" maxlength="45"
                                         placeholder="Ingresa tu(s) apellido(s)"/>
                                     <x-input-error :messages="$errors->get('apellidos')" class="mt-2" />
                                 </div>
@@ -67,19 +69,19 @@
                                 <!-- Celular -->
                                 <div class="mt-4">
                                     <x-input-label for="celular" :value="__('Celular')" />
-                                    <x-text-input id="celular" class="block mt-1 w-full" type="text" name="celular" 
-                                        :value="old('celular')" required autofocus autocomplete="celular" maxlength="15" 
-                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
+                                    <x-text-input id="celular" class="block mt-1 w-full" type="text" name="celular"
+                                        :value="old('celular')" required autofocus autocomplete="celular" maxlength="15"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                         placeholder="Ingresa tu número de celular/teléfono"/>
                                     <x-input-error :messages="$errors->get('celular')" class="mt-2" />
                                 </div>
                             </div>
-                            <div class="size-1/2 px-2">                       
+                            <div class="size-1/2 px-2">
                                 <!-- Correo -->
                                 <div class="mt-4">
                                     <x-input-label for="correo" :value="__('Correo')" />
-                                    <x-text-input id="correo" class="block mt-1 w-full" type="email" name="correo" 
-                                        :value="old('correo')" required autocomplete="correo" maxlength="100" 
+                                    <x-text-input id="correo" class="block mt-1 w-full" type="email" name="correo"
+                                        :value="old('correo')" required autocomplete="correo" maxlength="100"
                                         placeholder="Ingresa tu correo electrónico"/>
                                     <x-input-error :messages="$errors->get('correo')" class="mt-2" />
                                 </div>
@@ -112,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                
+
                         <!-- Ver errores -->
                         @if ($errors->any())
                             <div class="mt-4">
@@ -123,7 +125,7 @@
                                 </ul>
                             </div>
                         @endif
-                
+
                         <div class="flex items-center justify-end mt-4">
                             <x-primary-button class="ms-4">
                                 {{ __('Registrar') }}

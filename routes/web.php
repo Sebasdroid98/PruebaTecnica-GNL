@@ -8,6 +8,7 @@ use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PremioController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Ganador;
+use App\Models\Premio;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +29,11 @@ Route::get('/', function () {
             ->with('cliente.municipio.departamento')
             ->with('premio')
             ->get();
-    return view('welcome', compact('departamentos','ganadores'));
+
+    // Obtener los premios disponibles
+    $premio = Premio::select('id', 'codigo', 'nombre', 'cantidad')
+            ->where('estado', '0')->first();
+    return view('welcome', compact('departamentos','ganadores','premio'));
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -51,7 +56,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('guest')->group(function () {
     // Ruta para consultar los municipios de un departamento
     Route::get('municipios/{id}', [MunicipioController::class, 'getMunicipios'])->name('municipios_depto');
-    
+
     // Ruta para registrar un nuevo cliente
     Route::post('register-cliente', [ClienteController::class, 'store'])->name('register.cliente');
 });
