@@ -4,22 +4,7 @@
     @endsection
 
     <div class="py-3">
-        <div class="max-w-8xl mx-2 sm:px-6 lg:px-8">
-            <!-- Enlaces -->
-            @if (Route::has('login'))
-                <div class="sm:top-0 sm:right-0 p-6 text-right">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Iniciar sesión admin</a>
-        
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registro admin</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-            
+        <div class="max-w-8xl mx-2 sm:px-6 lg:px-8">            
             <!-- Propuesta landing page -->
             <div class="flex">
                 <div class="size-1/2 p-2">
@@ -29,9 +14,10 @@
                     <x-card class="mt-8">
                         <h1 class="text-xl mb-4 font-bold text-center text-gray-900 dark:text-white">Bienvenido a Global Next Level</h1>
                         <hr>
-                        <p class="mt-4 text-gray-600 dark:text-gray-400 text-justify">Tenemos el gusto de informarte las novedades de hoy, <strong class="text-xl font-bold">!Estamos de sorteo!</strong></p>
-                        <p class="mt-4 text-gray-600 dark:text-gray-400">Sí, como lo has leído, hoy estamos sorteando un <strong>automóvil último modelo</strong>.</p>
-                        <p class="mt-4 text-gray-600 dark:text-gray-400">Para participar, por favor regístrate <x-nav-link href="#form-clientes">presionando aquí</x-nav-link>. Si tienes alguna duda, nuestros agentes te atenderán de inmediato.</p>
+                        <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Tenemos el gusto de informarte las novedades de hoy, <strong class="text-xl font-bold">!Estamos de sorteo!</strong>.</p>
+                        <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Sí, como lo has leído, hoy estamos sorteando un <strong>automóvil último modelo</strong>.</p>
+                        <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Para participar, por favor regístrate <x-nav-link href="#form-clientes">presionando aquí</x-nav-link>.</p>
+                        <p class="mt-4 text-center text-gray-600 dark:text-gray-400">Si ya estás registrado no olvides revisar el listado de ganadores y si tienes alguna duda, nuestros agentes te atenderán de inmediato.</p>
                         <div class="flex justify-center">
                             <x-button-link class="mt-4 mr-2 text-center" href="#form-clientes">Regístrate aquí</x-button-link>
                             <x-button-link class="mt-4 text-center" href="#list-ganadores">Lista de ganadores</x-button-link>

@@ -38,6 +38,8 @@ class SeleccionarGanador extends Command
 
         $clienteSeleccionado = $usuarios->random();
 
+        $this->info("El ganador es: {$clienteSeleccionado->name} (ID: {$clienteSeleccionado->id})");
+
         // Obtenemos el premio por sortear
         $premio = Premio::where('estado', '0')->first();
 
