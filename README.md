@@ -54,6 +54,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 - Para descargar toda la información editable del sistema presiona el botón "Descarga todos los registros".
 
 ## Notas a tener en cuenta
+- Si no te funcionan los comandos en tu terminal powershell, usa la terminal que proporciona xampp (En windows).
 - Esta habilitado el soporte al "modo oscuro o dark mode".
 - La acción de presionar el botón "Iniciar próximo sorteo" estará dísponible para el administrador desde el "dashboard", como tal se da la libertad de iniciar el sorteo si no quieres activar las tareas automaticas.
 - En el archivo "laravel.log" quedarán registrado cada vez que se elija un ganador o se intente elegir un ganador.
