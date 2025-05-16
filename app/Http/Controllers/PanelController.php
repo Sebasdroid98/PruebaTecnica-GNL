@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Models\Ganador;
 use App\Models\Premio;
-use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class PanelController extends Controller
 {
-    public function index()
+    /**
+     * Muestra la interfaz del panel con los datos de clientes, premios y ganadores.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function mostrarInterfaz()
     {
         // Obtener todos los clientes
         $clientes = Cliente::select('id', 'identificacion', 'nombres', 'apellidos', 'correo','celular', 'habeas_data','municipio_id')
@@ -30,8 +34,6 @@ class DashboardController extends Controller
             ->with('premio')
             ->get();
 
-        // dd($ganadores);
-
-        return view('dashboard', compact('clientes', 'ganadores', 'premios'));
+        return view('panel.panel', compact('clientes', 'ganadores', 'premios'));
     }
 }

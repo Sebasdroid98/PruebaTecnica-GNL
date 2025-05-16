@@ -1,14 +1,13 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PanelController;
 use App\Http\Controllers\ExportarDatosController;
 use App\Http\Controllers\GanadorController;
+use App\Http\Controllers\InvitadoController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PremioController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Ganador;
-use App\Models\Premio;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,21 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $departamentos = \App\Models\Departamento::all();
-    $ganadores = Ganador::select('cliente_id','premio_id')
-            ->orderBy('created_at', 'desc')
-            ->with('cliente.municipio.departamento')
-            ->with('premio')
-            ->get();
+Route::get('/', [InvitadoController::class, 'mostrarInterfaz'])->name('inicio');
 
-    // Obtener los premios disponibles
-    $premio = Premio::select('id', 'codigo', 'nombre', 'cantidad')
-            ->where('estado', '0')->first();
-    return view('welcome', compact('departamentos','ganadores','premio'));
-});
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/panel', [PanelController::class, 'mostrarInterfaz'])->middleware(['auth', 'verified'])->name('panel');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -44,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Ruta para registrar un nuevo premio
-    Route::post('register-premio', [PremioController::class, 'store'])->name('register.premio');
+    Route::post('registrar-premio', [PremioController::class, 'registrarPremio'])->name('registrar.premio');
 
     // Ruta para seleccionar un ganador al azar
     Route::get('seleccionar-ganador', [GanadorController::class, 'seleccionarGanador'])->name('seleccionar.ganador');
@@ -55,10 +42,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('guest')->group(function () {
     // Ruta para consultar los municipios de un departamento
-    Route::get('municipios/{id}', [MunicipioController::class, 'getMunicipios'])->name('municipios_depto');
+    Route::get('municipios/{id}', [MunicipioController::class, 'obtenerMunicipiosDepto'])->name('municipios.depto');
 
     // Ruta para registrar un nuevo cliente
-    Route::post('register-cliente', [ClienteController::class, 'store'])->name('register.cliente');
+    Route::post('registrar-cliente', [ClienteController::class, 'registrarCliente'])->name('registrar.cliente');
 });
 
 require __DIR__.'/auth.php';
