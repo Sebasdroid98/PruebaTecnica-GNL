@@ -34,6 +34,6 @@ class PanelController extends Controller
             ->with('premio')
             ->get();
 
-        return view('panel.panel', compact('clientes', 'ganadores', 'premios'));
+        return view('panel', compact('clientes', 'ganadores', 'premios'));
     }
 }

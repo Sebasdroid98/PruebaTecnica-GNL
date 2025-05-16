@@ -26,6 +26,6 @@ class InvitadoController extends Controller
         $premio = Premio::select('id', 'codigo', 'nombre', 'cantidad')
                 ->where('estado', '0')->first();
         
-        return view('inicio.inicio', compact('departamentos','ganadores','premio'));
+        return view('inicio', compact('departamentos','ganadores','premio'));
     }
 }

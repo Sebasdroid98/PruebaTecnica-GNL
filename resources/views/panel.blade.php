@@ -11,20 +11,20 @@
             <div class="flex">
                 <div class="size-1/2 p-2">
                     <x-card>
-                        @include('panel.partes.premios')
+                        <x-panel.tabla-premios :premios="$premios" />
                     </x-card>
                 </div>
 
                 <div class="size-1/2 p-2">
                     <x-card>
-                        @include('panel.partes.ganadores')
+                        <x-panel.tabla-ganadores :ganadores="$ganadores" />
                     </x-card>
                 </div>
             </div>
 
             <!-- Clientes -->
             <x-card class="mt-3">
-                @include('panel.partes.clientes')
+                <x-panel.tabla-clientes :clientes="$clientes" />
             </x-card>
         </div>
     </div>
