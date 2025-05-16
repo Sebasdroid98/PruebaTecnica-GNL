@@ -29,7 +29,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 - Ejecuta en orden los comandos "composer install" y "npm install".
 - Crear una copia del archivo ".env.example" y colocarle el nombre ".env".
 - Configura las variables "DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME y DB_PASSWORD" de acuerdo a la configuracion de tu entorno.
-- Descomprime el archivo "storage.zip".
+- Descomprime el archivo "storage.zip" (solo si no tienes la carpeta storage).
 - Ejecuta en orden los comandos "php artisan key:generate", "php artisan migrate --seed", si te pregunta sobre crear la base, escribe "yes".
 
 ## Activación de tareas automáticas (Solo si tienes activado cron en tu servidor)
