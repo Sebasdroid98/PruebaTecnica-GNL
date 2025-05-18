@@ -5,13 +5,15 @@ document.addEventListener('DOMContentLoaded', function () {
     departamentoSelect.addEventListener('change', function () {
         const departamentoId = this.value;
 
-        fetch(`/municipios/${departamentoId}`)
-            .then(response => response.json())
-            .then(data => {
+        axios.get(`/municipios/${departamentoId}`)
+            .then(response => {
                 municipioSelect.innerHTML = '<option value="" disabled selected>Seleccione</option>';
-                data.forEach(municipio => {
+                response.data.forEach(municipio => {
                     municipioSelect.innerHTML += `<option value="${municipio.id}">${municipio.nombre}</option>`;
                 });
+            })
+            .catch(error => {
+                console.error('Error al cargar los municipios:', error);
             });
     });
 });

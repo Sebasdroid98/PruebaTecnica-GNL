@@ -9,8 +9,11 @@ class MunicipioController extends Controller
 {
     /**
      * Obtener los municipios de un departamento
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getMunicipios($id)
+    public function obtenerMunicipiosDepto($id)
     {
         $municipios = Municipio::where('departamento_id', $id)
             ->with('departamento:id,nombre')

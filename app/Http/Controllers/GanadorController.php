@@ -11,6 +11,8 @@ class GanadorController extends Controller
 {
     /**
      * Seleccionar ganador al azar si hay al menos 5 usuarios.
+     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function seleccionarGanador(){
         $usuarios = Cliente::all();
@@ -35,7 +37,7 @@ class GanadorController extends Controller
             $ganadorObj->premio_id = $premio->id;
             $ganadorObj->save();
 
-            return back()->with('success', "El ganador es: {$clienteSeleccionado->name} (ID: {$clienteSeleccionado->id})");
+            return back()->with('success', "El ganador es: {$clienteSeleccionado->nombres} (CC: {$clienteSeleccionado->identificacion})");
 
         } else {
             return back()->with('info', 'No hay premios disponibles para sortear.');

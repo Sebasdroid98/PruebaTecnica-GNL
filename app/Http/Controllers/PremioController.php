@@ -3,22 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PremioRequest;
+use App\Models\Premio;
 use Illuminate\Http\Request;
 
 class PremioController extends Controller
 {
     /**
      * Se registra un nuevo premio.
+     * 
+     * @param PremioRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function registrarPremio(PremioRequest $request)
     {
-        $request->validate([
-            'codigo' => ['required', 'string', 'max:10'],
-            'nombre' => ['required', 'string', 'max:100'],
-            'cantidad' => 'required|numeric'
-        ]);
-
-        \App\Models\Premio::create([
+        Premio::create([
             'codigo' => $request->codigo,
             'nombre' => $request->nombre,
             'cantidad' => $request->cantidad,

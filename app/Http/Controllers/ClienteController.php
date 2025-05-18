@@ -3,27 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
-use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
     /**
      * Registro de un nuevo cliente
+     * 
+     * @param ClienteRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function registrarCliente(ClienteRequest $request)
     {
-
-        $data = request()->validate([
-            'identificacion' => ['required', 'string', 'max:15', 'unique:clientes'],
-            'nombres' => ['required', 'string', 'max:45'],
-            'apellidos' => ['required', 'string', 'max:45'],
-            'celular' => ['required', 'string', 'max:15'],
-            'correo' => ['required', 'string', 'email', 'max:100'],
-            'habeas_data' => ['required', 'boolean'],
-            'municipio_id' => ['required', 'numeric']
-        ]);
-
         $cliente = Cliente::create([
             'identificacion' => $request->identificacion,
             'nombres' => $request->nombres,
@@ -35,6 +27,5 @@ class ClienteController extends Controller
         ]);
 
         return redirect('/')->with('success', 'Cliente con CC '.$cliente->identificacion.', registrado con éxito.');
-
     }
 }
