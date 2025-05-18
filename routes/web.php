@@ -3,22 +3,10 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ExportarDatosController;
 use App\Http\Controllers\GanadorController;
-use App\Http\Controllers\InvitadoController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PremioController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::view('/', 'inicio')->name('inicio');
 
