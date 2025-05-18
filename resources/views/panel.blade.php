@@ -11,20 +11,20 @@
             <div class="flex">
                 <div class="size-1/2 p-2">
                     <x-card>
-                        <x-panel.tabla-premios :premios="$premios" />
+                        <x-panel.tabla-premios />
                     </x-card>
                 </div>
 
                 <div class="size-1/2 p-2">
                     <x-card>
-                        <x-panel.tabla-ganadores :ganadores="$ganadores" />
+                        <x-panel.tabla-ganadores />
                     </x-card>
                 </div>
             </div>
 
             <!-- Clientes -->
             <x-card class="mt-3">
-                <x-panel.tabla-clientes :clientes="$clientes" />
+                <x-panel.tabla-clientes />
             </x-card>
         </div>
     </div>

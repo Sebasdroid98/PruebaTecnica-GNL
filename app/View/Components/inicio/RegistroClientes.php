@@ -2,9 +2,11 @@
 
 namespace App\View\Components\inicio;
 
+use App\Models\Departamento;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Database\Eloquent\Collection as Collection;
 
 class RegistroClientes extends Component
 {
@@ -13,9 +15,17 @@ class RegistroClientes extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($departamentos)
+    public function __construct()
     {
-        $this->departamentos = $departamentos;
+        $this->departamentos = $this->obtenerDepartamentos();
+    }
+
+    /**
+     * Función para obtener el listado de departamentos
+     */
+    public function obtenerDepartamentos(): Collection
+    {
+        return Departamento::all();
     }
 
     /**

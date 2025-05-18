@@ -39,5 +39,12 @@
                 </tr>
             @endforelse
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" class="p-3">
+                    {{ $ganadores->links() }}
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>

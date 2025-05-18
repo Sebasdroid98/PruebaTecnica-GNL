@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\PanelController;
 use App\Http\Controllers\ExportarDatosController;
 use App\Http\Controllers\GanadorController;
 use App\Http\Controllers\InvitadoController;
@@ -21,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [InvitadoController::class, 'mostrarInterfaz'])->name('inicio');
+Route::view('/', 'inicio')->name('inicio');
 
-Route::get('/panel', [PanelController::class, 'mostrarInterfaz'])->middleware(['auth', 'verified'])->name('panel');
+Route::view('/panel', 'panel')->middleware(['auth', 'verified'])->name('panel');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
